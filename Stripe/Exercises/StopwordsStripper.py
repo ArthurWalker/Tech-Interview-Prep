@@ -3,7 +3,7 @@ import re
 
 
 from typing import List
-def stopword_stripper(text, stopwords: List<str>) -> str:
+def stopword_stripper(text, stopwords: List[str]) -> str:
     lst_words = text.split()
     res = []
     for word in lst_words:
