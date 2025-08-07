@@ -1,0 +1,22 @@
+class Solution:
+    def numDecodings(self, s: str) -> int:
+        dp = {len(s) : 1}
+
+        def dfs(i):
+            if i in dp:
+                return dp[i]
+            if s[i] == "0":
+                return 0
+            res = dfs(i + 1) # Left side with 1 digit consideration
+            
+            # check if the next digit is available  for Right side with 2 digit consideration
+               
+            if i < len(s)-1 and ( s[i] == "1" or (s[i] == "2" and s[i + 1] in "0123456")):
+                 res += dfs(i + 2)
+            dp[i] = res  # Res is the total of both 1 digit consideration and 2 digit consideration
+            print(i,dp)
+            return res
+
+        return dfs(0)
+
+      
