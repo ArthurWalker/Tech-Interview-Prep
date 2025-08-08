@@ -4,24 +4,18 @@ from typing import List
 # if shop close + customer comes => penalty +1
 
 def earlier_minimum_penalty(customers: str) -> int:
-    pentaly_dictary = {}
-    # iterate through the customers to calcaluta penalty for each hour
-    for hour in range(len(customers)+1):
-        # if shop open + no customer
-        shop_open = customers[:hour]
-        shop_close = customers[hour:]
-        penalty_hour = 0
-        for open_hour in shop_open:
-            if open_hour == 'N':
-                penalty_hour+=1
-        for close_hour in shop_close:
-            if close_hour == 'Y':
-                penalty_hour+=1
-        pentaly_dictary[hour] = penalty_hour
+    close_dict = {}
+    # iterate through the customers to calcalute penalty for each hour
+    for close_time in range(len(customers)+1):
+        penalty = 0
+        for ind, cust_come in enumerate(customers):
+            if (ind >= close_time and cust_come == 'Y') or (ind < close_time and cust_come == 'N'):
+                penalty += 1
+        close_dict[close_time] = penalty
 
 
-    min_penalty = min(pentaly_dictary.values())
-    for hour,penalty in pentaly_dictary.items():
+    min_penalty = min(close_dict.values())
+    for hour,penalty in close_dict.items():
         if penalty == min_penalty:
             return hour
 

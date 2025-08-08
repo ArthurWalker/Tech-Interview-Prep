@@ -12,11 +12,8 @@ def customStringCompress(text: str) -> str:
         dot_split = major.split(".")
         new_dot_split = []
         for minor in dot_split:
-            new_formated = ''
-            if len(minor)<=2:
-                new_formated+=minor
-            else:
-                new_formated=minor[0]+str(len(minor)-2)+minor[-1]
+            new_minor = minor[0]+str(len(minor)-2)+minor[-1]
+            new_formated= new_minor if len(minor)>2 else minor
             new_dot_split.append(new_formated)
         dot_formatted = '.'.join(new_dot_split)
         minor_list.append(dot_formatted)
