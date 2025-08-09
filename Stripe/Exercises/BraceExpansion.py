@@ -1,7 +1,5 @@
 from typing import List
 
-import re
-
 # def convert_word(s:str) -> List[str]:
 #     result = []
 #     i = 0

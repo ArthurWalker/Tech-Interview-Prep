@@ -1,8 +1,5 @@
 from typing import List
 
-from django.views.static import directory_index
-
-
 # Notes:
 # Wont guarantee to have both cases existing
 # The format is exactly like described, no special characters
@@ -44,13 +41,7 @@ def min_oneHopeRoutes(shippign_dict, source: str, destiation: str) -> int:
     res = (one_hope_dict.values())
     return min(res) if len(res) > 0 else -1
 
-
-def minimumshipping(shipping_data_string: str, source: str, destiation: str) -> int:
-    if source == destiation:
-        return 0
-    elif len(shipping_data_string) == 0:
-        return -1
-
+def preprocess(shipping_data_string):
     # ["US,UK,UPS,5","US,CA,FedEx,3","CA,UK,DHL,7"]
     shipping_lst = shipping_data_string.split(":")
     shipping_dict = {}
@@ -58,13 +49,21 @@ def minimumshipping(shipping_data_string: str, source: str, destiation: str) -> 
     # {("US","UK"):[["UPS":5]], ("US","CA"):[["FedEx":3]]}
     for item in shipping_lst:
         element = item.split(",")
-        from_lo, to_lo, carrier, cost = element[0],element[1],element[2],int(element[3])
-        if (from_lo,to_lo) not in shipping_dict:
-            shipping_dict[(from_lo,to_lo)] = [[carrier,cost]]
+        from_lo, to_lo, carrier, cost = element[0], element[1], element[2], int(element[3])
+        if (from_lo, to_lo) not in shipping_dict:
+            shipping_dict[(from_lo, to_lo)] = [[carrier, cost]]
         else:
-            shipping_dict[(from_lo,to_lo)].append([carrier,cost])
+            shipping_dict[(from_lo, to_lo)].append([carrier, cost])
 
+    return shipping_dict
 
+def minimumshipping(shipping_data_string: str, source: str, destiation: str) -> int:
+    if source == destiation:
+        return 0
+    elif len(shipping_data_string) == 0:
+        return -1
+
+    shipping_dict = preprocess(shipping_data_string)
     direct_cost = min_directRoutes(shipping_dict,source,destiation)
     one_hop = min_oneHopeRoutes(shipping_dict,source,destiation)
     if direct_cost  == one_hop == -1:
