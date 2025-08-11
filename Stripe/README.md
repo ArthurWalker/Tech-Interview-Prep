@@ -78,7 +78,7 @@ If the shop closes at the $j$-th hour ($0 \le j \le n$, where $n$ is the total n
 
 Return the earliest hour at which the shop must be closed to incur a minimum penalty.
 
-**Note:** If a shop closes at the $j$-th hour, it means the shop is closed at the hour $j$.
+**Note:** If a shop closes at the $j$-th hour, it means the shop is closed from the hour $j$.
 
 ### Examples
 

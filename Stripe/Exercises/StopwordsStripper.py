@@ -12,8 +12,6 @@ def stopword_stripper(text, stopwords: List[str]) -> str:
         for letter in lower_word:
             if (letter.isalpha() == True):
                 new_word+=letter
-        # new_word =  re.sub(string.punctuation,'',lower_word)
-
         if new_word not in stopwords:
             res.append(lower_word)
 
